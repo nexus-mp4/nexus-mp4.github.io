@@ -1,6 +1,8 @@
 body {
-    background-color: #0000FF;
+  background-color: #0000FF;  
+  color: #FFFFFF;
 }
+
 h1 {
     font-size: 30px;
 }
