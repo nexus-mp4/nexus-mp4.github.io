@@ -6,5 +6,6 @@ body {
 h1 {
     font-size: 30px;
     text-align: center;
+    color: white;
     font-family: "Archivo Black", sans-serif;
 }
