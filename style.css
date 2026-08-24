@@ -1,11 +1,291 @@
-body {
-  background-color: #0000FF;  
-  color: #000000;
+/* ==========================================================================
+   Material 3 Expressive — dark blue tonal palette
+   Tonal steps derived from a blue primary hue, darkened per M3 dark scheme
+   ========================================================================== */
+
+:root{
+  /* Core tonal palette (blue hue, dark scheme) */
+  --m3-primary:            #aac7ff;   /* tone 80 - used for icons/accents on dark surface */
+  --m3-primary-container:  #1d3f8f;   /* tone 30 - filled pill background */
+  --m3-on-primary-container: #dbe1ff;
+
+  --m3-secondary-container: #12224f; /* tone 20ish - tonal pill background */
+  --m3-on-secondary-container: #c7d1ff;
+
+  --m3-surface-dim:   #05070f;
+  --m3-surface:       #06081a;       /* page background — dark, desaturated blue */
+  --m3-surface-bright:#141a33;
+  --m3-surface-container-lowest: #030512;
+  --m3-surface-container-low:    #0a0d21;
+  --m3-surface-container:        #0d1128;
+  --m3-surface-container-high:   #131731;
+  --m3-surface-container-highest:#1a1f3d;
+
+  --m3-on-surface:          #e2e2f0;
+  --m3-on-surface-variant:  #a4a9c7;
+  --m3-outline:             #3c4160;
+  --m3-outline-variant:     #22263f;
+
+  /* Motion — M3 Expressive spring/emphasized curves */
+  --m3-motion-standard: cubic-bezier(0.2, 0, 0, 1);
+  --m3-motion-spring:   cubic-bezier(0.34, 1.56, 0.64, 1);
+  --m3-motion-fast: 150ms;
+  --m3-motion-med:  350ms;
+
+  /* Shape scale — Expressive leans into larger, varied rounding */
+  --m3-shape-full: 999px;
+  --m3-shape-xl: 28px;
 }
 
-h1 {
-    font-size: 30px;
-    text-align: center;
-    color: white;
-    font-family: "Archivo Black", sans-serif;
+*{ box-sizing: border-box; }
+
+html, body{
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background: var(--m3-surface);
+  color: var(--m3-on-surface);
+  font-family: 'Google Sans Text', 'Google Sans', Roboto, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ambient darkening layer under content, above particles, for legibility */
+.scrim{
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 0%, rgba(6,8,26,0) 0%, var(--m3-surface) 78%),
+    linear-gradient(180deg, rgba(6,8,26,0.2) 0%, rgba(6,8,26,0.55) 100%);
+}
+
+#particles{
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.page{
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 80px 24px 56px;
+}
+
+/* ---------------- Profile block ---------------- */
+
+.profile-block{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.avatar-shape{
+  width: 96px;
+  height: 96px;
+  border-radius: 40% 60% 55% 45% / 45% 40% 60% 55%; /* organic M3 Expressive blob */
+  background: var(--m3-primary-container);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+  transition: border-radius var(--m3-motion-med) var(--m3-motion-spring);
+}
+
+.avatar-shape:hover{
+  border-radius: 55% 45% 40% 60% / 55% 60% 40% 45%;
+}
+
+.avatar-image{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.headline{
+  margin: 0 0 6px;
+  font-family: 'Google Sans Flex', 'Google Sans', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  font-variation-settings: 'opsz' 40, 'wght' 700;
+  letter-spacing: -0.01em;
+  color: var(--m3-on-surface);
+  text-align: center;
+}
+
+.supporting-text{
+  margin: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--m3-on-surface-variant);
+  text-align: center;
+  max-width: 300px;
+}
+
+/* ---------------- Pills (Material 3 list-item / button hybrid) ---------------- */
+
+.links{
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pill{
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 14px 20px;
+  border-radius: var(--m3-shape-full);
+  text-decoration: none;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition:
+    border-radius var(--m3-motion-med) var(--m3-motion-spring),
+    transform var(--m3-motion-fast) var(--m3-motion-standard),
+    box-shadow var(--m3-motion-fast) var(--m3-motion-standard);
+}
+
+/* Filled tonal variant */
+.pill--filled{
+  background: var(--m3-primary-container);
+  color: var(--m3-on-primary-container);
+}
+
+/* Secondary tonal variant, alternated for rhythm */
+.pill--tonal{
+  background: var(--m3-secondary-container);
+  color: var(--m3-on-secondary-container);
+}
+
+/* State layer via ::after, per M3 interaction states spec */
+.pill::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity var(--m3-motion-fast) var(--m3-motion-standard);
+  pointer-events: none;
+}
+
+.pill:hover::after{ opacity: 0.08; }
+.pill:active::after{ opacity: 0.12; }
+
+.pill:hover{
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+  /* Expressive shape morph on hover: squircle -> asymmetric rounding */
+  border-radius: 24px 999px 999px 24px;
+}
+
+.pill:active{
+  transform: translateY(0) scale(0.985);
+  border-radius: var(--m3-shape-full);
+}
+
+.pill:focus-visible{
+  outline: 3px solid var(--m3-primary);
+  outline-offset: 3px;
+}
+
+.pill-icon{
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pill-icon svg{
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.pill-text{
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.pill-label{
+  font-family: 'Google Sans Flex', 'Google Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  font-variation-settings: 'opsz' 20, 'wght' 600;
+  letter-spacing: 0.01em;
+}
+
+.pill-handle{
+  font-size: 12.5px;
+  font-weight: 400;
+  opacity: 0.72;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pill-arrow{
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  opacity: 0.7;
+  transition: transform var(--m3-motion-fast) var(--m3-motion-spring), opacity var(--m3-motion-fast);
+}
+
+.pill-arrow svg{ width: 100%; height: 100%; }
+
+.pill:hover .pill-arrow{
+  transform: translateX(4px);
+  opacity: 1;
+}
+
+/* ---------------- Footer ---------------- */
+
+.footer{
+  margin-top: 48px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--m3-on-surface-variant);
+  opacity: 0.6;
+  text-align: center;
+}
+
+/* ---------------- Responsive ---------------- */
+
+@media (max-width: 480px){
+  .page{ padding: 56px 18px 40px; }
+  .headline{ font-size: 24px; }
+  .pill{ padding: 12px 16px; gap: 12px; }
+  .pill-icon{ width: 36px; height: 36px; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  #particles{ display: none; }
+  .pill, .avatar-shape, .pill-arrow{ transition: none; }
 }
