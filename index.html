@@ -108,6 +108,35 @@
   </nav>
 </main>
 
+<div class="now-playing" id="nowPlaying">
+  <button class="np-play" id="npPlayBtn" type="button" aria-label="Play">
+    <svg class="np-icon np-icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+    <svg class="np-icon np-icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+  </button>
+
+  <div class="np-body">
+    <div class="np-meta">
+      <span class="np-label">Now playing</span>
+      <span class="np-track" id="npTrack">Loading…</span>
+    </div>
+
+    <div class="np-scrubber" id="npScrubber">
+      <svg class="np-wave" id="npWave" viewBox="0 0 300 20" preserveAspectRatio="none">
+        <path class="np-wave-track" d="" fill="none" stroke-linecap="round"/>
+        <path class="np-wave-fill" d="" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <div class="np-times">
+      <span id="npCurrent">0:00</span>
+      <span id="npDuration">0:00</span>
+    </div>
+  </div>
+
+  <audio id="npAudio" src="audio.mp3" preload="metadata"></audio>
+</div>
+
 <script src="index.js"></script>
+<script src="now-playing.js"></script>
 </body>
 </html>
